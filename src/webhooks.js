@@ -21,7 +21,7 @@ const validSecret = async (req) => {
   console.log(
     `req.headers["x-hub-signature"]: ${req.headers["x-hub-signature"]}`
   );
-  return signature !== req.headers["x-hub-signature"]
+  return signature === req.headers["x-hub-signature"]
 }
 
 const printLog = async (processName) => {
@@ -37,10 +37,11 @@ const printLog = async (processName) => {
 }
 
 const webhookUpdate = async (req, res) => {
-  res.end(JSON.stringify({ data: "success" }))
+  console.log(req.body)
   // 获取
-  const payload = JSON.parse(req.body || '');
+  const payload = JSON.parse(req.body);
   const name = `./src/shell/${payload.repository.name}.sh`;
+  res.end(JSON.stringify({ data: "success" }))
   const child = spawn('sh', [name])
   await printLog(child)
 }
@@ -49,15 +50,23 @@ const webhookUpdate = async (req, res) => {
 const server = http.createServer(async (req, res) => {
   console.log(`请求为：${req.url}`);
   res.setHeader('Content-Type', 'application/json');
-  if (req.url === '/api/webhook/updateCommon') {
-    const valid = await validSecret(req);
-    if (!valid) {
-      res.end(JSON.stringify({ error: 0, errorMsg: '校验失败' }))
-      return;
+  // 不断更新数据
+  let body = '';
+  req.on('data', (data) => {
+    body += data;
+  });
+  req.on('end', async (data) => {
+    req.body = body
+    if (req.url === '/api/webhook/updateCommon') {
+      const valid = await validSecret(req);
+      if (!valid) {
+        res.end(JSON.stringify({ error: 0, errorMsg: '校验失败' }))
+        return;
+      }
+      await webhookUpdate(req, res);
+      return
     }
-    await webhookUpdate(req, res);
-    return
-  }
+  })
 })
 
 server.listen(3001, () => {
