@@ -51,12 +51,13 @@ const server = http.createServer(async (req, res) => {
   console.log(`请求为：${req.url}`);
   res.setHeader('Content-Type', 'application/json');
   // 不断更新数据
-  let body = '';
+  let body = "";
   req.on('data', (data) => {
     body += data;
   });
-  req.on('end', async (data) => {
-    req.body = body
+  req.on('end', async () => {
+    console.log(body)
+    req.body = JSON.parse(body)
     if (req.url === '/api/webhook/updateCommon') {
       const valid = await validSecret(req);
       if (!valid) {
