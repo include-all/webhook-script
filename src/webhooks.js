@@ -31,7 +31,7 @@ const printLog = async (processName) => {
   processName.stderr.on('data', (data) => {
     console.error(`stderr: ${data}`);
   });
-  processName.stdout.on('close', (data) => {
+  processName.stdout.on('close', () => {
     console.log(`============end================`)
   })
 }
@@ -39,7 +39,7 @@ const printLog = async (processName) => {
 const webhookUpdate = async (req, res) => {
   res.end(JSON.stringify({ data: "success" }))
   // 获取
-  const payload = JSON.parse(body);
+  const payload = JSON.parse(req.body || '');
   const name = `./src/shell/${payload.repository.name}.sh`;
   const child = spawn('sh', [name])
   await printLog(child)
