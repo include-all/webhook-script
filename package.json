@@ -1,23 +1,23 @@
 {
-  "name": "webhook-script",
+  "name": "webhooks-script",
   "version": "1.0.0",
-  "description": "webhook脚本",
+  "description": "webhooks脚本",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node ./src/webhook.js",
-    "start":"pm2 start ./webhook.js --name webhook --watch",
-    "stop":"pm2 stop webhook"
+    "dev": "node ./src/webhooks.js",
+    "start":"pm2 start ./src/webhooks.js --name webhooks --watch",
+    "stop":"pm2 stop webhooks"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/include-all/webhook-script.git"
+    "url": "git+https://github.com/include-all/webhooks-script.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/include-all/webhook-script/issues"
+    "url": "https://github.com/include-all/webhooks-script/issues"
   },
-  "homepage": "https://github.com/include-all/webhook-script#readme"
+  "homepage": "https://github.com/include-all/webhooks-script#readme"
 }
