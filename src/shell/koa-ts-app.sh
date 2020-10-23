@@ -1,9 +1,14 @@
 #!/bin/bash
-WORK_PATH='/usr/projects/back'
+cd /home/node/koa-ts-app 
+
+pwd
+
 echo "更新代码"
 git pull
 
 echo "重启项目"
-npm run reProd
+npm run stop
+
+npm run prod
 
 echo "重启成功"
