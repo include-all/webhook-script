@@ -37,9 +37,7 @@ const printLog = async (processName) => {
 }
 
 const webhookUpdate = async (req, res) => {
-  console.log(req.body)
-  // 获取
-  const payload = JSON.parse(req.body);
+  const payload = req.body;
   const name = `./src/shell/${payload.repository.name}.sh`;
   res.end(JSON.stringify({ data: "success" }))
   const child = spawn('sh', [name])
