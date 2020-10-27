@@ -6,6 +6,9 @@ pwd
 echo "更新代码"
 git pull
 
+echo "更新依赖"
+npm install
+
 echo "重启项目"
 npm run stop
 

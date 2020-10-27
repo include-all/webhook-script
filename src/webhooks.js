@@ -26,10 +26,10 @@ const validSecret = async (req) => {
 
 const printLog = async (processName) => {
   processName.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`)
+    console.log(data)
   })
   processName.stderr.on('data', (data) => {
-    console.error(`stderr: ${data}`);
+    console.error(data);
   });
   processName.stdout.on('close', () => {
     console.log(`============end================`)
