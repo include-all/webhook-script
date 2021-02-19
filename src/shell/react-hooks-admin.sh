@@ -17,7 +17,7 @@ echo "============删除原文件夹==============="
 rm -rf /home/www/react-hooks-admin
 
 echo "==========移动文件到指定位置/home/www/react-hooks-admin=========="
-mkdir react-hooks-admin
+mkdir /home/www/react-hooks-admin
 
 mv /home/git-repositories/react-hooks-admin/dist/* /home/www/react-hooks-admin
 
